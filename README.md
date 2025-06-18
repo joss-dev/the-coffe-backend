@@ -1,98 +1,255 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+🚀 The Coffee Backend - Guía de Instalación
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Bienvenido al proyecto The Coffee Backend, una API construida con NestJS, MySQL, TypeORM, JWT para autenticación. Este documento proporciona una guía detallada para instalar las dependencias necesarias, configurar el entorno, y ejecutar el proyecto utilizando Docker y PNPM.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+📋 Requisitos previos
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Node.js (versión 18.x o superior). Descarga desde nodejs.org.
 
-## Project setup
 
-```bash
-$ pnpm install
-```
 
-## Compile and run the project
+Git para clonar el repositorio. Descarga desde git-scm.com.
 
-```bash
-# development
-$ pnpm run start
 
-# watch mode
-$ pnpm run start:dev
 
-# production mode
-$ pnpm run start:prod
-```
+Un editor de código como Visual Studio Code.
 
-## Run tests
 
-```bash
-# unit tests
-$ pnpm run test
 
-# e2e tests
-$ pnpm run test:e2e
+Acceso a una terminal (bash, zsh, PowerShell, etc.).
 
-# test coverage
-$ pnpm run test:cov
-```
+🛠️ Instalación de herramientas
 
-## Deployment
+1. Instalar Docker
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Docker permite ejecutar el proyecto en contenedores, asegurando consistencia en los entornos.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+En Windows/Mac:
 
-```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
-```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
-## Resources
 
-Check out a few resources that may come in handy when working with NestJS:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Descarga Docker Desktop desde docker.com.
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+Sigue las instrucciones de instalación para tu sistema operativo.
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Una vez instalado, abre Docker Desktop y verifica que esté corriendo.
+
+
+
+En la terminal, ejecuta:
+
+docker --version
+
+Deberías ver algo como Docker version 24.x.x.
+
+2. Instalar PNPM
+
+PNPM es un administrador de paquetes más rápido y eficiente que npm.
+
+
+Instala PNPM globalmente:
+
+npm install -g pnpm
+
+Verifica la instalación:
+
+pnpm --version
+
+Deberías ver algo como 9.x.x.
+
+3. Clonar el repositorio
+
+Clona el proyecto:
+
+git clone https://github.com/joss-dev/the-coffe-backend.git
+cd the-coffee-backend
+
+Instala las dependencias del proyecto:
+
+pnpm install
+
+⚙️ Configuración del entorno
+
+Copia el archivo de ejemplo de variables de entorno:
+
+cp .env.example .env
+
+Abre el archivo .env en tu editor de texto y configura las siguientes variables:
+
+# Database
+DATABASE_HOST=mysql
+DATABASE_PORT=3306
+DATABASE_USER=coffee_user
+DATABASE_PASSWORD=coffee_password
+DATABASE_NAME=coffee_db
+
+# JWT
+JWT_SECRET=your_jwt_secret_key
+JWT_EXPIRES_IN=1d
+
+# Google Auth
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GOOGLE_CALLBACK_URL=http://localhost:3000/auth/google/callback
+
+# API
+PORT=3000
+
+Database: Los valores predeterminados funcionan con la configuración de Docker.
+
+JWT_SECRET: Genera una clave segura (puedes usar openssl rand -hex 32).
+
+Google Auth: Obtén las credenciales desde Google Cloud Console.
+
+🐳 Configuración con Docker
+
+El proyecto incluye un archivo docker-compose.yml que configura un contenedor para MySQL y otro para la aplicación NestJS.
+
+Asegúrate de que Docker y Docker Compose estén corriendo.
+
+Construye y levanta los contenedores:
+
+docker-compose up -d --build
+
+-d: Ejecuta los contenedores en segundo plano.
+
+--build: Construye las imágenes antes de iniciar.
+
+Verifica que los contenedores estén corriendo:
+
+docker ps
+
+Deberías ver dos contenedores: uno para mysql y otro para the-coffee-backend.
+
+Aplica las migraciones de la base de datos:
+
+pnpm run typeorm:migration:run
+
+🚀 Iniciar el proyecto
+
+Usando Docker
+
+Si usaste docker-compose up, la aplicación ya está corriendo en http://localhost:3000.
+
+Sin Docker (desarrollo local)
+
+Asegúrate de que MySQL esté corriendo localmente o en el contenedor Docker.
+
+Inicia el servidor en modo desarrollo:
+
+pnpm run start:dev
+
+La API estará disponible en http://localhost:3000.
+
+📚 Comandos útiles
+
+
+Comando
+
+
+
+Descripción
+
+
+
+
+
+pnpm install
+
+
+
+Instala las dependencias del proyecto.
+
+
+
+
+
+pnpm run start
+
+
+
+Inicia la aplicación en modo producción.
+
+
+
+
+
+pnpm run start:dev
+
+
+
+Inicia en modo desarrollo con recarga.
+
+
+
+
+
+pnpm run typeorm:migration:run
+
+
+
+Ejecuta las migraciones de la base de datos.
+
+
+
+
+
+docker-compose up -d
+
+
+
+Levanta los contenedores.
+
+
+
+
+
+docker-compose down
+
+
+
+Detiene y elimina los contenedores.
+
+
+
+
+
+docker logs the-coffee-backend
+
+
+
+Muestra los logs de la aplicación.
+
+🧪 Probar la API
+
+
+Abre tu cliente API favorito (Postman, Insomnia, etc.).
+
+
+
+🛠️ Solución de problemas
+
+
+
+
+
+Error de conexión a MySQL: Verifica que el contenedor mysql esté corriendo (docker ps) y que las variables en .env coincidan.
+
+
+
+Puerto ocupado: Cambia el PORT en .env si el puerto 3000 está en uso.
+
+
+
+Dependencias fallidas: Borra node_modules y pnpm-lock.yaml, luego ejecuta pnpm install nuevamente.
+
+
+
+Logs detallados: Usa docker logs mysql o docker logs the-coffee-backend para diagno
