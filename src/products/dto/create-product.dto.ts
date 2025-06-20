@@ -7,7 +7,6 @@ import {
   IsPositive,
   Min,
 } from 'class-validator';
-import { Category } from 'src/category/entities/category.entity';
 
 export class CreateProductDto {
   @IsString()
@@ -30,8 +29,9 @@ export class CreateProductDto {
   @IsPositive()
   price: number;
 
-  @IsNotEmpty()
-  category: Category;
+  @IsInt()
+  @IsPositive()
+  categoryId: number;
 
   @IsInt()
   @Min(0)
