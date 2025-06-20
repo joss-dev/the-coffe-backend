@@ -47,36 +47,6 @@ Docker permite ejecutar el proyecto en contenedores, asegurando consistencia en 
    ```bash
    pnpm install
    ```
-
-## ⚙️ Configuración del entorno
-
-1. Copia el archivo de ejemplo de variables de entorno:
-   ```bash
-   cp .env.example .env
-   ```
-2. Abre el archivo `.env` en tu editor de texto y configura las siguientes variables:
-   ```env
-   # Database
-   DATABASE_HOST=mysql
-   DATABASE_PORT=3306
-   DATABASE_USER=coffee_user
-   DATABASE_PASSWORD=coffee_password
-   DATABASE_NAME=coffee_db
-
-   # JWT
-   JWT_SECRET=your_jwt_secret_key
-   JWT_EXPIRES_IN=1d
-
-   # Google Auth
-   GOOGLE_CLIENT_ID=your_google_client_id
-   GOOGLE_CLIENT_SECRET=your_google_client_secret
-   GOOGLE_CALLBACK_URL=http://localhost:3000/auth/google/callback
-
-   # API
-   PORT=3000
-   ```
-   - **Database**: Los valores predeterminados funcionan con la configuración de Docker.
-
 ## 🐳 Configuración con Docker
 
 El proyecto incluye un archivo `docker-compose.yml` que configura un contenedor para **MySQL** y otro para la aplicación **NestJS**.
@@ -93,17 +63,7 @@ El proyecto incluye un archivo `docker-compose.yml` que configura un contenedor 
    ```bash
    docker ps
    ```
-   Deberías ver dos contenedores: uno para `mysql` y otro para `the-coffee-backend`.
-
-4. Aplica las migraciones de la base de datos:
-   ```bash
-   pnpm run typeorm:migration:run
-   ```
-
 ## 🚀 Iniciar el proyecto
-
-### Usando Docker
-Si usaste `docker-compose up`, la aplicación ya está corriendo en `http://localhost:3000`.
 
 ### Sin Docker (desarrollo local)
 1. Asegúrate de que MySQL esté corriendo localmente o en el contenedor Docker.
