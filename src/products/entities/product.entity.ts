@@ -13,7 +13,7 @@ export class Product {
   id: number;
 
   @Column({ unique: true, nullable: true })
-  codigo?: string;
+  codigo?: number;
 
   @Column()
   nombre: string;

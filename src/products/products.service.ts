@@ -23,17 +23,8 @@ export class ProductsService {
     const categoria = await this.categoryRepository.findOneBy({
       id: createProductDto.categoria_id,
     });
-    if (!categoria) {
-      throw new NotFoundException('Categoría no encontrada');
-    }
-
-    const existing = await this.productRepository.findOne({
-      where: { codigo: createProductDto.codigo },
-    });
-    if (existing) {
-      throw new BadRequestException('Ya existe un producto con ese código');
-    }
-
+    if(!categoria) throw new NotFoundException(`Categoría no encontrada`);
+    await this.ensureCodigoIsUnique(createProductDto.codigo??0);
     const product = this.productRepository.create({
       ...createProductDto,
       categoria,
@@ -41,7 +32,6 @@ export class ProductsService {
 
     return this.productRepository.save(product);
   }
-
   async findAll() {
     return this.productRepository.find();
   }
@@ -56,18 +46,26 @@ export class ProductsService {
     id: number,
     updateProductDto: UpdateProductDto,
   ): Promise<Product> {
+    await this.ensureCodigoIsUnique(updateProductDto.codigo??0, id);
     const product = await this.productRepository.preload({
       id,
       ...updateProductDto,
     });
-    if (!product) throw new NotFoundException(`Product #${id} not found`);
+    if (!product) throw new NotFoundException(`Producto no encontrado`);
     return this.productRepository.save(product);
   }
 
   async remove(id: number): Promise<void> {
     const result = await this.productRepository.delete(id);
     if (result.affected === 0) {
-      throw new NotFoundException(`Product #${id} not found`);
+      throw new NotFoundException(`Producto no encontrado`);
+    }
+  }
+  private async ensureCodigoIsUnique(codigo: number, idProduct?: number): Promise<void> {
+    const existing = await this.productRepository.findOneBy({ codigo });
+    if (existing && existing.id !== idProduct) {
+      throw new BadRequestException('Ya existe un producto con ese código');
     }
   }
 }
+

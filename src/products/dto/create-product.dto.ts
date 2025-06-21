@@ -14,7 +14,7 @@ export class CreateProductDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
-  codigo?: string;
+  codigo?: number;
 
   @IsString()
   @IsNotEmpty()
