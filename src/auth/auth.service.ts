@@ -17,7 +17,7 @@ export class AuthService {
       LoginUserDto.email,
     );
     if (!user) {
-      throw new BadRequestException('Invalid credentials');
+      throw new BadRequestException('Credenciales inválidas');
     }
 
     const isPasswordValid: boolean = await bcrypt.compare(
@@ -26,14 +26,17 @@ export class AuthService {
     );
 
     if (!isPasswordValid) {
-      throw new BadRequestException('Invalid credentials');
+      throw new BadRequestException('Contraseña incorrecta');
     }
 
     const payload = { sub: user.id };
 
     const token = await this.jwtService.signAsync(payload);
 
-    return { message: 'Login successful', token };
+    user.last_login = new Date();
+    await this.usersService.update(user.id, user);
+    
+    return { message: 'Login successful', token, user };
   }
 
   async register(createUserDto: RegisterUserDto) {
@@ -41,7 +44,7 @@ export class AuthService {
       createUserDto.email,
     );
     if (existingEmail) {
-      throw new BadRequestException('Email already exists');
+      throw new BadRequestException('El email ya esta registrado');
     }
 
     createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
@@ -49,7 +52,7 @@ export class AuthService {
     const userCreated = await this.usersService.create(createUserDto);
     const { id, email } = userCreated;
     return {
-      message: 'User registered successfully',
+      message: 'Usuario creado exitosamente',
       user: { id, email },
     };
   }

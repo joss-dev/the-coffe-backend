@@ -43,4 +43,7 @@ export class CreateProductDto {
   @IsBoolean()
   @IsNotEmpty()
   activo: boolean;
+
+  @IsOptional()
+  created_at?: Date;
 }

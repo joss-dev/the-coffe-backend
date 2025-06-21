@@ -38,4 +38,11 @@ export class UsersService {
   findAll() {
     return this.usersRepository.find();
   }
+  update(id: number, updateUserDto: CreateUserDto) {
+    return this.usersRepository.update(id, updateUserDto);
+  }
+
+  remove(id: number) {
+    return this.usersRepository.delete(id);
+  }
 }

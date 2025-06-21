@@ -5,16 +5,16 @@ export class CreateUserDto {
   @Transform(({ value }: { value: string }) => value.trim())
   @IsString()
   @MinLength(3, {
-    message: 'Username must be at least 3 characters long',
+    message: 'El nombre debe tener al menos 3 caracteres',
   })
   name: string;
 
   @Transform(({ value }: { value: string }) => value.trim())
-  @IsEmail({}, { message: 'Email must be valid' })
+  @IsEmail({}, { message: 'El email no es válido' })
   email: string;
 
   @Transform(({ value }: { value: string }) => value.trim())
   @IsString()
-  @MinLength(6, { message: 'Password must be at least 6 characters long' })
+  @MinLength(6, { message: 'La contraseña debe tener al menos 6 caracteres' })
   password: string;
 }

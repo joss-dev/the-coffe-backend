@@ -9,6 +9,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
 import { Repository } from 'typeorm';
 import { Category } from 'src/category/entities/category.entity';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 
 @Injectable()
 export class ProductsService {
@@ -23,8 +24,11 @@ export class ProductsService {
     const categoria = await this.categoryRepository.findOneBy({
       id: createProductDto.categoria_id,
     });
+    console.log(categoria);
     if(!categoria) throw new NotFoundException(`Categoría no encontrada`);
-    await this.ensureCodigoIsUnique(createProductDto.codigo??0);
+    if (createProductDto.codigo != null) {
+      await this.ensureCodigoIsUnique(createProductDto.codigo);
+    }
     const product = this.productRepository.create({
       ...createProductDto,
       categoria,
@@ -32,13 +36,41 @@ export class ProductsService {
 
     return this.productRepository.save(product);
   }
-  async findAll() {
-    return this.productRepository.find();
+  async findAll(query: PaginationDto) {
+    const { rows = 10, first = 0, search, status } = query;
+    const categories = query['categories[]'];
+    const qb = this.productRepository.createQueryBuilder('item')
+    .orderBy('item.created_at', 'DESC')
+    .where('item.deleted_at IS NULL')
+    .leftJoinAndSelect('item.categoria', 'categories')
+    .skip(first)
+    .take(rows);
+    if (status != undefined) {
+      qb.andWhere('item.activo = :status', { status: status == '1'});
+    }
+
+    if(categories) {
+      const categoriesId = Array.isArray(categories) ? categories.map((id) => parseInt(id)): [parseInt(categories)];
+      qb.andWhere('item.categoria_id IN (:...categories)', { categories: categoriesId });
+    }
+
+    if (search) {
+      qb.andWhere(
+        '(item.nombre LIKE :search OR item.codigo LIKE :search)',
+        { search: `%${search}%` },
+      );
+    }
+
+    const [data, total] = await qb.getManyAndCount();
+    return {
+      data,
+      totalRecords: total,
+    };
   }
 
   async findOne(id: number): Promise<Product> {
     const product = await this.productRepository.findOneBy({ id });
-    if (!product) throw new NotFoundException(`Product #${id} not found`);
+    if (!product) throw new NotFoundException(`Producto ${id} no encontrado`);
     return product;
   }
 
@@ -46,12 +78,14 @@ export class ProductsService {
     id: number,
     updateProductDto: UpdateProductDto,
   ): Promise<Product> {
-    await this.ensureCodigoIsUnique(updateProductDto.codigo??0, id);
+     if (updateProductDto.codigo != null) {
+      await this.ensureCodigoIsUnique(updateProductDto.codigo, id);
+    }
     const product = await this.productRepository.preload({
       id,
       ...updateProductDto,
     });
-    if (!product) throw new NotFoundException(`Producto no encontrado`);
+    if (!product) throw new NotFoundException(`Producto ${id} no encontrado`);
     return this.productRepository.save(product);
   }
 

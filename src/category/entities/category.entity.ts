@@ -11,4 +11,7 @@ export class Category {
 
   @OneToMany(() => Product, (product) => product.categoria)
   products: Product[];
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  created_at: Date;
 }
