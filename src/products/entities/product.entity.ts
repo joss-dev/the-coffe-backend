@@ -12,31 +12,28 @@ export class Product {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
-  code: string;
+  @Column({ unique: true, nullable: true })
+  codigo?: string;
 
   @Column()
-  name: string;
+  nombre: string;
 
   @ManyToOne(() => Category, (category) => category.products, { eager: true })
-  @JoinColumn({ name: 'category_id' })
-  category: Category;
+  @JoinColumn({ name: 'categoria_id' })
+  categoria: Category;
 
   @Column({ type: 'text', nullable: true })
-  description?: string;
+  descripcion?: string;
 
   @Column({ nullable: true })
-  image?: string;
+  imagen?: string;
 
   @Column('decimal', { precision: 10, scale: 2 })
-  price: number;
+  precio: number;
 
-  @Column('int')
-  quantity: number;
+  @Column('decimal', { precision: 10, scale: 2, nullable: true })
+  costo?: number;
 
   @Column()
-  inventoryStatus: string;
-
-  @Column('int', { nullable: true })
-  rating?: number;
+  activo: boolean;
 }

@@ -20,15 +20,15 @@ export class ProductsService {
   ) {}
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
-    const category = await this.categoryRepository.findOneBy({
-      id: createProductDto.categoryId,
+    const categoria = await this.categoryRepository.findOneBy({
+      id: createProductDto.categoria_id,
     });
-    if (!category) {
+    if (!categoria) {
       throw new NotFoundException('Categoría no encontrada');
     }
 
     const existing = await this.productRepository.findOne({
-      where: { code: createProductDto.code },
+      where: { codigo: createProductDto.codigo },
     });
     if (existing) {
       throw new BadRequestException('Ya existe un producto con ese código');
@@ -36,7 +36,7 @@ export class ProductsService {
 
     const product = this.productRepository.create({
       ...createProductDto,
-      category,
+      categoria,
     });
 
     return this.productRepository.save(product);

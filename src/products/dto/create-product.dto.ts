@@ -5,44 +5,42 @@ import {
   IsOptional,
   IsNumber,
   IsPositive,
-  Min,
+  isNumber,
+  isPositive,
+  IsBoolean,
 } from 'class-validator';
 
 export class CreateProductDto {
-  @IsString()
-  @IsNotEmpty()
-  code: string;
+  @IsInt()
+  @IsPositive()
+  @IsOptional()
+  codigo?: string;
 
   @IsString()
   @IsNotEmpty()
-  name: string;
+  nombre: string;
 
   @IsString()
   @IsOptional()
-  description?: string;
+  descripcion?: string;
 
   @IsString()
   @IsOptional()
-  image?: string;
+  imagen?: string;
 
   @IsNumber({ maxDecimalPlaces: 2 })
   @IsPositive()
-  price: number;
+  precio: number;
+
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @IsPositive()
+  costo?: number;
 
   @IsInt()
   @IsPositive()
-  categoryId: number;
+  categoria_id: number;
 
-  @IsInt()
-  @Min(0)
-  quantity: number;
-
-  @IsString()
+  @IsBoolean()
   @IsNotEmpty()
-  inventoryStatus: string;
-
-  @IsInt()
-  @Min(0)
-  @IsOptional()
-  rating?: number;
+  activo: boolean;
 }
