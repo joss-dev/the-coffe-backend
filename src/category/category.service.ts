@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { IsNull, Like, Repository } from 'typeorm';
 import { Category } from './entities/category.entity';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 
 @Injectable()
 export class CategoryService {
@@ -17,8 +18,22 @@ export class CategoryService {
     return this.categoryRepo.save(category);
   }
 
-  findAll() {
-    return this.categoryRepo.find();
+  async findAll(query: PaginationDto) {
+    const { rows = 10, first = 0, search } = query;
+    const [data, total] = await this.categoryRepo.findAndCount({
+      where: { 
+        deleted_at: IsNull(),
+        ...(search && { nombre: Like(`%${search}%`) })
+      },
+      order: { created_at: 'DESC' },
+      skip: first,
+      take: rows
+    });
+
+    return {
+      data,
+      totalRecords: total,
+    };
   }
 
   async findOne(id: number) {

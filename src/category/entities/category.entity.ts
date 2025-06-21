@@ -14,4 +14,7 @@ export class Category {
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
+
+  @Column({ type: 'timestamp', nullable: true })
+  deleted_at: Date;
 }
