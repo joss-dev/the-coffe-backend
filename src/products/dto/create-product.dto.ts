@@ -5,8 +5,6 @@ import {
   IsOptional,
   IsNumber,
   IsPositive,
-  isNumber,
-  isPositive,
   IsBoolean,
 } from 'class-validator';
 

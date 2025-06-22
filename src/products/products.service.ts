@@ -25,7 +25,7 @@ export class ProductsService {
       id: createProductDto.categoria_id,
     });
     console.log(categoria);
-    if(!categoria) throw new NotFoundException(`Categoría no encontrada`);
+    if (!categoria) throw new NotFoundException(`Categoría no encontrada`);
     if (createProductDto.codigo != null) {
       await this.ensureCodigoIsUnique(createProductDto.codigo);
     }
@@ -39,26 +39,30 @@ export class ProductsService {
   async findAll(query: PaginationDto) {
     const { rows = 10, first = 0, search, status } = query;
     const categories = query['categories[]'];
-    const qb = this.productRepository.createQueryBuilder('item')
-    .orderBy('item.created_at', 'DESC')
-    .where('item.deleted_at IS NULL')
-    .leftJoinAndSelect('item.categoria', 'categories')
-    .skip(first)
-    .take(rows);
+    const qb = this.productRepository
+      .createQueryBuilder('item')
+      .orderBy('item.created_at', 'DESC')
+      .where('item.deleted_at IS NULL')
+      .leftJoinAndSelect('item.categoria', 'categories')
+      .skip(first)
+      .take(rows);
     if (status != undefined) {
-      qb.andWhere('item.activo = :status', { status: status == '1'});
+      qb.andWhere('item.activo = :status', { status: status == '1' });
     }
 
-    if(categories) {
-      const categoriesId = Array.isArray(categories) ? categories.map((id) => parseInt(id)): [parseInt(categories)];
-      qb.andWhere('item.categoria_id IN (:...categories)', { categories: categoriesId });
+    if (categories) {
+      const categoriesId = Array.isArray(categories)
+        ? categories.map((id: string) => parseInt(id))
+        : [parseInt(categories as string)];
+      qb.andWhere('item.categoria_id IN (:...categories)', {
+        categories: categoriesId,
+      });
     }
 
     if (search) {
-      qb.andWhere(
-        '(item.nombre LIKE :search OR item.codigo LIKE :search)',
-        { search: `%${search}%` },
-      );
+      qb.andWhere('(item.nombre LIKE :search OR item.codigo LIKE :search)', {
+        search: `%${search}%`,
+      });
     }
 
     const [data, total] = await qb.getManyAndCount();
@@ -78,7 +82,7 @@ export class ProductsService {
     id: number,
     updateProductDto: UpdateProductDto,
   ): Promise<Product> {
-     if (updateProductDto.codigo != null) {
+    if (updateProductDto.codigo != null) {
       await this.ensureCodigoIsUnique(updateProductDto.codigo, id);
     }
     const product = await this.productRepository.preload({
@@ -95,11 +99,13 @@ export class ProductsService {
       throw new NotFoundException(`Producto no encontrado`);
     }
   }
-  private async ensureCodigoIsUnique(codigo: number, idProduct?: number): Promise<void> {
+  private async ensureCodigoIsUnique(
+    codigo: number,
+    idProduct?: number,
+  ): Promise<void> {
     const existing = await this.productRepository.findOneBy({ codigo });
     if (existing && existing.id !== idProduct) {
       throw new BadRequestException('Ya existe un producto con ese código');
     }
   }
 }
-

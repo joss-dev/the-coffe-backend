@@ -1,8 +1,14 @@
-import { IsOptional, IsPositive, IsInt, IsString, IsBooleanString, IsArray } from 'class-validator';
+import {
+  IsOptional,
+  IsPositive,
+  IsInt,
+  IsString,
+  IsBooleanString,
+  IsArray,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class PaginationDto {
-
   @IsOptional()
   @Type(() => Number)
   @IsInt()
@@ -12,7 +18,7 @@ export class PaginationDto {
   @IsOptional()
   @Type(() => Number)
   @IsInt()
-  first?: number; 
+  first?: number;
 
   @IsArray()
   @IsOptional()

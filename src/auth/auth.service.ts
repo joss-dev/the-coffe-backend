@@ -35,7 +35,7 @@ export class AuthService {
 
     user.last_login = new Date();
     await this.usersService.update(user.id, user);
-    
+
     return { message: 'Login successful', token, user };
   }
 

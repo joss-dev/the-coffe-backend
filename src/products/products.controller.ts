@@ -24,8 +24,8 @@ export class ProductsController {
 
   @Get()
   async findAll(@Query() paginationDto: PaginationDto) {
-  return this.productsService.findAll(paginationDto);
-}
+    return this.productsService.findAll(paginationDto);
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
