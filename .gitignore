@@ -3,6 +3,10 @@
 /node_modules
 /build
 
+# Ignora todo en public/images excepto .gitkeep
+public/images/*
+!public/images/.gitkeep
+
 # Logs
 logs
 *.log
