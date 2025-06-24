@@ -1,25 +1,52 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { Pedido } from "../../pedido/entities/pedido.entity";
+import { Cafeteria } from '../../cafeteria/entities/cafeteria.entity';
+import { Rol } from "../../rol/entities/rol.entity";
 
-@Entity()
-export class User {
-  @PrimaryGeneratedColumn()
+@Index("cafeteria_id", ["cafeteriaId"], {})
+@Index("rol_id", ["rolId"], {})
+@Entity("usuario", { schema: "nestdb" })
+export class Usuario {
+  @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;
 
-  @Column({ unique: true })
+  @Column("int", { name: "cafeteria_id" })
+  cafeteriaId: number;
+
+  @Column("int", { name: "rol_id" })
+  rolId: number;
+
+  @Column("varchar", { name: "email", length: 100 })
   email: string;
 
-  @Column({ nullable: true })
-  password: string;
+  @Column("varchar", { name: "nombre", nullable: true, length: 100 })
+  nombre: string | null;
 
-  @Column()
-  name: string;
+  @Column("varchar", { name: "contraseña", nullable: true, length: 255 })
+  contraseA: string | null;
 
-  @Column({ type: 'timestamp', nullable: true })
-  last_login?: Date;
+  @OneToMany(() => Pedido, (pedido) => pedido.usuario)
+  pedidos: Pedido[];
 
-  @Column()
-  rol_id: number;
+  @ManyToOne(() => Cafeteria, (cafeteria) => cafeteria.usuarios, {
+    onDelete: "RESTRICT",
+    onUpdate: "RESTRICT",
+  })
+  @JoinColumn([{ name: "cafeteria_id", referencedColumnName: "id" }])
+  cafeteria: Cafeteria;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  created_at: Date;
+  @ManyToOne(() => Rol, (rol) => rol.users, {
+    onDelete: "RESTRICT",
+    onUpdate: "RESTRICT",
+  })
+  @JoinColumn([{ name: "rol_id", referencedColumnName: "id" }])
+  rol: Rol;
 }

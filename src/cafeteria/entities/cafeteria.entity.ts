@@ -1,12 +1,14 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-// import { Categoria } from "./Categoria";
-// import { Cliente } from "./Cliente";
-// import { Mesero } from "./Mesero";
-// import { Pedido } from "./Pedido";
-// import { Product } from '../../products/entities/product.entity';
-// import { Sala } from "./Sala";
-// import { ServicioPago } from "./ServicioPago";
-// import { Usuario } from "./Usuario";
+import { ManyToOne } from "typeorm";
+import { JoinColumn } from "typeorm";
+import { Category } from '../../category/entities/category.entity';
+import { Cliente } from '../../cliente/entities/cliente.entity';
+import { Mesero } from '../../mesero/entities/mesero.entity';
+import { Pedido } from '../../pedido/entities/pedido.entity';
+import { Product } from '../../products/entities/product.entity';
+import { Sala } from '../../sala/entities/sala.entity';
+import { Serviciopago } from '../../serviciopago/entities/serviciopago.entity';
+import { User } from '../../users/entities/user.entity';
 
 @Entity("cafeteria", { schema: "nestdb" })
 export class Cafeteria {
@@ -16,27 +18,27 @@ export class Cafeteria {
   @Column("varchar", { name: "nombre", length: 100 })
   nombre: string;
 
-//   @OneToMany(() => Categoria, (categoria) => categoria.cafeteria)
-//   categorias: Categoria[];
+  @OneToMany(() => Category, (category) => category.cafeteria)
+  categorias: Category[];
 
-//   @OneToMany(() => Cliente, (cliente) => cliente.cafeteria)
-//   clientes: Cliente[];
+  @OneToMany(() => Cliente, (cliente) => cliente.cafeteria)
+  clientes: Cliente[];
 
-//   @OneToMany(() => Mesero, (mesero) => mesero.cafeteria)
-//   meseros: Mesero[];
+  @OneToMany(() => Mesero, (mesero) => mesero.cafeteria)
+  meseros: Mesero[];
 
-//   @OneToMany(() => Pedido, (pedido) => pedido.cafeteria)
-//   pedidos: Pedido[];
+  @OneToMany(() => Pedido, (pedido) => pedido.cafeteria)
+  pedidos: Pedido[];
 
-//   @OneToMany(() => Product, (product) => product.cafeteria)
-//   productos: Product[];
+  @OneToMany(() => Product, (product) => product.cafeteria)
+  productos: Product[];
 
-//   @OneToMany(() => Sala, (sala) => sala.cafeteria)
-//   salas: Sala[];
+  @OneToMany(() => Sala, (sala) => sala.cafeteria)
+  salas: Sala[];
 
-//   @OneToMany(() => ServicioPago, (servicioPago) => servicioPago.cafeteria)
-//   servicioPagos: ServicioPago[];
+  @OneToMany(() => Serviciopago, (servicioPago) => servicioPago.cafeteria)
+  servicioPagos: Serviciopago[];
 
-//   @OneToMany(() => Usuario, (usuario) => usuario.cafeteria)
-//   usuarios: Usuario[];
+  @OneToMany(() => User, (user) => user.cafeteria)
+  usuarios: User[];
 }
