@@ -2,7 +2,6 @@ import { IsOptional, IsPositive, IsInt, IsString, IsBooleanString, IsArray } fro
 import { Type } from 'class-transformer';
 
 export class PaginationDto {
-
   @IsOptional()
   @Type(() => Number)
   @IsInt()

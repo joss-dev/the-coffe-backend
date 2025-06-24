@@ -33,7 +33,6 @@ export class ProductsService {
       ...createProductDto,
       categoria,
     });
-
     return this.productRepository.save(product);
   }
   async findAll(query: PaginationDto) {
