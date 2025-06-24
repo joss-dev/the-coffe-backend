@@ -7,8 +7,10 @@ import { User } from './users/entities/user.entity';
 import { CategoryModule } from './category/category.module';
 import { Category } from './category/entities/category.entity';
 import { Product } from './products/entities/product.entity';
+import { PedidoModule } from './pedido/pedido.module';
 import { Rol } from './rol/entities/rol.entity';
 import { RolModule } from './rol/rol.module';
+import { PermisoModule } from './permiso/permiso.module';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { RolModule } from './rol/rol.module';
     UsersModule,
     CategoryModule,
     RolModule,
+    PedidoModule,
+    PermisoModule,
   ],
 })
 export class AppModule {}
