@@ -15,7 +15,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PaginationDto } from '../common/dto/pagination.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { multerOptions } from '../middelware/validateImageProduct';
+import { multerOptions } from '../middleware/validateImageProduct';
 
 @Controller('products')
 export class ProductsController {

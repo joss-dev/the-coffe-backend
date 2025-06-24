@@ -7,6 +7,8 @@ import { User } from './users/entities/user.entity';
 import { CategoryModule } from './category/category.module';
 import { Category } from './category/entities/category.entity';
 import { Product } from './products/entities/product.entity';
+import { Rol } from './rol/entities/rol.entity';
+import { RolModule } from './rol/rol.module';
 
 @Module({
   imports: [
@@ -17,13 +19,14 @@ import { Product } from './products/entities/product.entity';
       username: 'nestuser',
       password: 'nestpass',
       database: 'nestdb',
-      entities: [User, Category, Product],
+      entities: [User, Category, Product, Rol],
       synchronize: true, // Solo para desarrollo
     }),
     AuthModule,
     ProductsModule,
     UsersModule,
     CategoryModule,
+    RolModule,
   ],
 })
 export class AppModule {}

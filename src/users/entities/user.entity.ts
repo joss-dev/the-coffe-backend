@@ -17,6 +17,9 @@ export class User {
   @Column({ type: 'timestamp', nullable: true })
   last_login?: Date;
 
+  @Column()
+  rol_id: number;
+
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 }
